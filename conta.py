@@ -40,11 +40,17 @@ class Conta:
         self.__saldo += valor
 
     def saca(self, valor):
-        self.__saldo -= valor
+        if(self.__pode_sacar(valor)):
+            self.__saldo -= valor
+        else:
+            print("O valor {} passou o limite".format(valor))
 
     def transfere(self, valor, conta_destino):
-        self.saca(valor)
-        conta_destino.deposita(valor)
+        if(self.__pode_sacar(valor)):
+            self.saca(valor)
+            conta_destino.deposita(valor)
+        else:
+            print("O valor {} passou o limite".format(valor))
 
     def __pode_sacar(self, valor_a_sacar):
         valor_disponivel_a_sacar = self.__saldo + self.__limite
